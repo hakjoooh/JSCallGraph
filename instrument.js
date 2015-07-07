@@ -13,7 +13,7 @@ var ast = esprima.parse (code, { loc : true });
 
 // annotate the program to track function calls
 ast = insert (ast);
-console.log (JSON.stringify (ast, null, 2));
+//console.log (JSON.stringify (ast, null, 2));
 
 // generate the annotated program to JavaScript
 var code_annot = escodegen.generate (ast);
