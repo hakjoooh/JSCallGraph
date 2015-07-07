@@ -13,7 +13,7 @@ var ast = esprima.parse (code, { loc : true });
 
 // annotate the program to track function calls
 ast = insert (ast);
-//console.log (JSON.stringify (ast, null, 2));
+console.log (JSON.stringify (ast, null, 2));
 
 // generate the annotated program to JavaScript
 var code_annot = escodegen.generate (ast);
@@ -38,6 +38,8 @@ function insertStmtArray (stmtArray) {
 }
 
 function insertStmt (stmt) {
+  if (stmt.type == "VariableDeclaration")
+    stmt = insertVariableDecl (stmt);
   if (stmt.type == "FunctionDeclaration")
     stmt = insertFunctionDecl (stmt);
   if (stmt.type == "BlockStatement") 
@@ -67,6 +69,19 @@ function insertStmt (stmt) {
   if (stmt.type == "ForInStatement")
     stmt = insertForInStatement (stmt);
   return stmt;
+}
+
+function insertVariableDecl (stmt) {
+  for (var i = 0; i < stmt.declarations.length; i++) {
+    stmt.declarations[i] = insertVariableDeclarator(stmt.declarations[i]);    
+  }
+  return stmt;
+}
+
+function insertVariableDeclarator (decl) {
+  if (decl.init !== null)
+    decl.init = insertExpression (decl.init);
+  return decl;
 }
 
 function insertFunctionDecl (stmt) {
@@ -235,6 +250,7 @@ function insertArrayExpression (exp) {
 }
 
 function insertObjectExpression (exp) {
+  console.log ("ObjectExpression");
   for (var i = 0; i < exp.properties.length; i++) {
     exp.properties[i] = insertProperty (exp.properties[i]);
   }
