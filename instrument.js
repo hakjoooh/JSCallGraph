@@ -250,7 +250,6 @@ function insertArrayExpression (exp) {
 }
 
 function insertObjectExpression (exp) {
-  console.log ("ObjectExpression");
   for (var i = 0; i < exp.properties.length; i++) {
     exp.properties[i] = insertProperty (exp.properties[i]);
   }
