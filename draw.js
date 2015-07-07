@@ -24,7 +24,7 @@ function tojson (ast) {
 }
 
 function loc2str (loc) {
-  return "l" + loc.start.line + "c" + loc.start.column;
+  return "<" + loc.start.line + "c" + loc.start.column + ">";
 }
 
 // naming convention for anonymous functions

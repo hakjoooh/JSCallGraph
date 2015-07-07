@@ -12,3 +12,5 @@ function main() {
   g();
   (function (k) { f(); return k; })(1);
 }
+
+main();
