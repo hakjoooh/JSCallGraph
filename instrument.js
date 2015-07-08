@@ -8,7 +8,6 @@ if (process.argv.length < 3) {
 }
 
 var filename = process.argv[2];
-console.log (filename);
 var code = fs.readFileSync (filename);
 var ast = esprima.parse (code, { loc : true });
 
