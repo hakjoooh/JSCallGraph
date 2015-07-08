@@ -8,6 +8,7 @@ if (process.argv.length < 3) {
 }
 
 var filename = process.argv[2];
+console.log (filename);
 var code = fs.readFileSync (filename);
 var ast = esprima.parse (code, { loc : true });
 
@@ -17,7 +18,7 @@ ast = insert (ast);
 
 // generate the annotated program to JavaScript
 var code_annot = escodegen.generate (ast);
- console.log (code_annot);
+// console.log (code_annot);
 eval (code_annot);
 
 function insert (ast) {
@@ -320,5 +321,5 @@ function insertCatchClause (clause) {
 }
 
 function loc2str (loc) {
-  return (loc.start.line + ":" + loc.start.column);
+  return (filename + ":" + loc.start.line + ":" + loc.start.column + "-" + loc.end.line + ":" + loc.end.column);
 }
