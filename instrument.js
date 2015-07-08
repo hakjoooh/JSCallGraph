@@ -17,7 +17,7 @@ ast = insert (ast);
 
 // generate the annotated program to JavaScript
 var code_annot = escodegen.generate (ast);
-// console.log (code_annot);
+ console.log (code_annot);
 eval (code_annot);
 
 function insert (ast) {
